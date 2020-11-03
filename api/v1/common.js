@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 const svgCaptcha = require('svg-captcha');
 const {setRedisValue} = require('../../lib/redisDb');
+const {NotFoundException} = require('../../lib/exception');
 
 const router = new Router({
   prefix: '/v1/common/',
@@ -26,6 +27,10 @@ router.get('getCaptcha', async (ctx) => {
     },
     path: `${ctx.path}`
   };
+});
+
+router.get('test', async (ctx) => {
+  throw new NotFoundException()
 });
 
 module.exports = router;

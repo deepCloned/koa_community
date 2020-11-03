@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const cors = require('@koa/cors');
 const bodyParser = require('koa-bodyparser');
+const catchError = require('./middleware/catchError');
 
 /**
  * 项目初始化
@@ -16,9 +17,7 @@ const initRouter = require('./lib/router');
 const app = new Koa();
 
 // initMongoDb();
-app.on('error', err => {
-  console.log('app error', err);
-});
+app.use(catchError)
 
 app.use(cors());
 app.use(bodyParser());
