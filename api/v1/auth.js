@@ -1,13 +1,15 @@
 const Router = require('koa-router');
 const {getRedisValue} = require('../../lib/redisDb');
 const jwt = require('jsonwebtoken');
-const User = require('../../model/User')
+const User = require('../../model/user')
 const {
   RegisterValidator,
   LoginValidator,
 } = require('../../validator/loginValidator');
 const {
-  ParameterExcetion
+  ParameterExcetion,
+  AlreadyExistException,
+  SuccessException,
 } = require('../../lib/exception');
 const loginValidator = require('../../validator/loginValidator');
 
@@ -22,13 +24,18 @@ router.post('register', async (ctx) => {
   registerValidator.validate()
   const {errors} = registerValidator
   if (errors.length === 0) {
-    const user = new User({
-      email,
-      username,
-      password
-    })
-    const saveRes = await user.save()
-    ctx.body = registerValidator
+    const u = await User.getUserByUsername(username)
+    if (u.length !== 0) {
+      throw new AlreadyExistException()
+    } else {
+      const user = new User({
+        email,
+        username,
+        password
+      })
+      const saveRes = await user.save()
+      throw new SuccessException('注册成功')
+    }
   } else {
     throw new ParameterExcetion(errors)
   }
