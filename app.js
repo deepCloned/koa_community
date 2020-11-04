@@ -6,7 +6,7 @@ const catchError = require('./middleware/catchError');
 /**
  * 项目初始化
  */
-// const initMongoDb = require('./lib/mongoDb');
+const initMongoDb = require('./lib/mongoDb');
 const {
   setRedisValue,
   getRedisValue,
@@ -16,7 +16,7 @@ const initRouter = require('./lib/router');
 
 const app = new Koa();
 
-// initMongoDb();
+initMongoDb();
 app.use(catchError)
 
 app.use(cors());

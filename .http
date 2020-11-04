@@ -1,15 +1,28 @@
+@BASE_URL = http://localhost:3000/v1
+
 ### 获取验证码
-GET http://localhost:3000/v1/common/getCaptcha?sid=123123111
+GET {{BASE_URL}}/common/getCaptcha?sid=81cb158d-741b-4d10-b127-1f51cf6bddde
 
 ### 测试抛出错误
-GET http://localhost:3000/v1/common/test
+GET {{BASE_URL}}/common/test
 
-### 登录验证
-POST http://localhost:3000/v1/auth/login
+### register
+POST {{BASE_URL}}/auth/register
 Content-Type: application/json
 
 {
-  "email": "1583526434@qq.com",
+  "email": "1583525343@qq.com",
+  "username": "node",
+  "password": "node_node",
+  "code": "1234",
+  "sid": "2312323"
+}
+
+### 登录验证
+POST {{BASE_URL}}/auth/login
+Content-Type: application/json
+
+{
   "username": "",
   "password": "1",
   "code": "1",
