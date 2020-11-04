@@ -4,7 +4,7 @@
   "description": "node &amp;&amp; koa connunity project",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./app.js"
+    "start": "cross-env NODE_ENV=development nodemon ./app.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "svg-captcha": "^1.4.0"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "eslint": "^7.12.1",
     "nodemon": "^2.0.6"
   }

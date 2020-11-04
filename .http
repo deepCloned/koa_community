@@ -1,0 +1,17 @@
+### 获取验证码
+GET http://localhost:3000/v1/common/getCaptcha?sid=123123111
+
+### 测试抛出错误
+GET http://localhost:3000/v1/common/test
+
+### 登录验证
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "1583526434@qq.com",
+  "username": "",
+  "password": "1",
+  "code": "1",
+  "sid": ""
+}

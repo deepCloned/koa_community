@@ -29,8 +29,8 @@ router.get('getCaptcha', async (ctx) => {
   };
 });
 
-router.get('test', async (ctx) => {
-  throw new NotFoundException()
+router.get('test', async (ctx, next) => {
+  throw new Error()
 });
 
 module.exports = router;
