@@ -2,6 +2,6 @@ module.exports = {
   env: 'devlopment',
   jwtConfig: {
     secretKey: 'fdfjsdfskfsjdgkadgjkadg',
-    expiresIn: 1000,
+    expiresIn: 60*60*24*7,
   }
 }

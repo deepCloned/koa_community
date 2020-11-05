@@ -28,3 +28,9 @@ Content-Type: application/json
   "code": "1234",
   "sid": "2312323"
 }
+
+### 测试token
+POST {{BASE_URL}}/auth/token
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvYS1ib2R5LXBhcnNlciIsImlhdCI6MTYwNDU4ODU3OCwiZXhwIjoxNjA1MTkzMzc4fQ.qBy5dwP_fkvZJzxNDV6zT-jNdl5Kg42ByovJl1W-EH4
+

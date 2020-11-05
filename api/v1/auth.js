@@ -16,6 +16,10 @@ const {
 const {
   generateToken
 } = require('../../lib/utils');
+const Auth = require('../../middleware/auth');
+
+const jwt = require('jsonwebtoken');
+const jwtConfig = require('../../config/config').jwtConfig;
 
 const router = new Router({
   prefix: '/v1/auth/',
@@ -79,5 +83,16 @@ router.post('login', async (ctx) => {
     throw new ParameterExcetion(errors)
   }
 });
+
+/**
+ * 测试token
+ */
+router.post('token', async (ctx, next) => {
+  new Auth().validate(ctx, next)
+  ctx.body = {
+    message: '验证成功',
+    username: ctx.username
+  }
+})
 
 module.exports = router;
