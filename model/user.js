@@ -22,7 +22,7 @@ userSchema.pre('save', async function (next) {
 
 const User = mongoose.model('users', userSchema)
 User.getUserByUsername = async function (username) {
-  return await User.find({
+  return await this.findOne({
     username
   })
 }

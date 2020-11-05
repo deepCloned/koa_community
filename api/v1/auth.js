@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 const {getRedisValue} = require('../../lib/redisDb');
-const jwt = require('jsonwebtoken');
-const User = require('../../model/user')
+const bcrypt = require('bcryptjs');
+const User = require('../../model/user');
 const {
   RegisterValidator,
   LoginValidator,
@@ -9,9 +9,13 @@ const {
 const {
   ParameterExcetion,
   AlreadyExistException,
+  NotFoundException,
   SuccessException,
+  UnauthorizedException,
 } = require('../../lib/exception');
-const loginValidator = require('../../validator/loginValidator');
+const {
+  generateToken
+} = require('../../lib/utils');
 
 const router = new Router({
   prefix: '/v1/auth/',
@@ -33,7 +37,7 @@ router.post('register', async (ctx) => {
         username,
         password
       })
-      const saveRes = await user.save()
+      await user.save()
       throw new SuccessException('注册成功')
     }
   } else {
@@ -48,7 +52,29 @@ router.post('login', async (ctx) => {
   loginValidator.validate()
   const { errors } = loginValidator
   if (errors.length === 0) {
-    ctx.body = loginValidator
+    // 密码比对
+    const user = await User.findOne({
+      username
+    })
+    if (!user) {
+      throw new NotFoundException('该用户不存在')
+    }
+    const compareRes = bcrypt.compareSync(password, user.password)
+    if (!compareRes) {
+      throw new UnauthorizedException('密码不正确')
+    } else {
+      // 颁布令牌
+      const token = generateToken({username})
+      ctx.token = token
+      ctx.body = {
+        errorCode: 0,
+        data: {
+          token,
+        },
+        message: '登录成功',
+        path: `${ctx.method} ${ctx.path}`
+      }
+    }
   } else {
     throw new ParameterExcetion(errors)
   }

@@ -23,8 +23,8 @@ POST {{BASE_URL}}/auth/login
 Content-Type: application/json
 
 {
-  "username": "",
-  "password": "1",
-  "code": "1",
-  "sid": ""
+  "username": "koa-body-parser",
+  "password": "koa_koa",
+  "code": "1234",
+  "sid": "2312323"
 }
